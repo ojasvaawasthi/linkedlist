@@ -16,6 +16,19 @@ void insertathead(node* &head,int val)
     n->next=head;
     head=n;
 }
+void insertatmid(node* &head,int position,int data)
+{
+    node* temp=head;
+    int count=1;
+    while(count<position-1)
+    {
+        temp=temp->next;
+        count++;
+    }
+    node* nodetoinsert= new node(data);
+    nodetoinsert->next=temp->next;
+    temp->next=nodetoinsert;
+}
 void insertattail(node* &head,int val)
 {
     
@@ -53,6 +66,7 @@ int main(int argc, const char * argv[]) {
     insertattail(head, 5);
    
     insertathead(head, 6);
+    insertatmid(head, 3, 7);
     display(head);
    
     return 0;
