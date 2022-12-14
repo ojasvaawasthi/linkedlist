@@ -1,3 +1,10 @@
+//
+//  main.cpp
+//  reversell
+//
+//  Created by Ojasva Awasthi on 10/12/22.
+//
+
 #include <iostream>
 using namespace std;
 class node{
@@ -15,19 +22,6 @@ void insertathead(node* &head,int val)
     node* n=new node(val);
     n->next=head;
     head=n;
-}
-void insertatmid(node* &head,int position,int data)
-{
-    node* temp=head;
-    int count=1;
-    while(count<position-1)
-    {
-        temp=temp->next;
-        count++;
-    }
-    node* nodetoinsert= new node(data);
-    nodetoinsert->next=temp->next;
-    temp->next=nodetoinsert;
 }
 void insertattail(node* &head,int val)
 {
@@ -56,6 +50,86 @@ void display(node* head)
     cout<<endl;
     
 }
+void deleteathead(node* &head)
+{
+    node* temp=head;
+    head=head->next;
+    delete temp;
+    
+}
+void deleteatend(node* &head)
+{
+    node* temp=head;
+    while(temp->next->next!=NULL)
+        temp=temp->next;
+    node* todelete=temp->next;
+    temp->next=NULL;
+    delete todelete;
+}
+void deleteatloc(node* &head,int loc)
+{
+    node* temp=head;
+    int i=0,count=loc-1;
+    while(i!=count)
+    {
+        temp=temp->next;
+        i++;
+    }
+    node* todelete=temp->next;
+    
+    temp->next=temp->next->next;
+    delete todelete;
+}
+void deletion(node* &head,int val)
+{
+    node* temp=head;
+    if(head->next==NULL)
+    {
+        head=NULL;
+    }
+    while(temp->next->data!=val)
+    {
+        temp=temp->next;
+    }
+    node* todelete=temp->next;
+    temp->next=temp->next->next;
+    delete todelete;
+}
+void findmid(node* &head)
+{
+
+    node* f=head;
+    node* s=head;
+    if(head!=NULL)
+    {
+        while(f!=NULL && f->next!=NULL)
+        {
+            f=f->next->next;
+            s=s->next;
+        }
+         cout<<s->data;
+    }
+    }
+void nthnode(node* &head,int pos)
+{
+    node* f=head;
+    node* s=head;
+    int i=0;
+    for(i=0;i<pos;i++)
+    {
+        f=f->next;
+    }
+    
+    while(f->next!=NULL)
+    {
+        f=f->next;
+        s=s->next;
+        
+    }
+    cout<<s->data;
+}
+
+
 int main(int argc, const char * argv[]) {
     // insert code here...
     node* head=NULL;
@@ -66,8 +140,17 @@ int main(int argc, const char * argv[]) {
     insertattail(head, 5);
    
     insertathead(head, 6);
-    insertatmid(head, 3, 7);
     display(head);
+    deleteatend(head);
+    display(head);
+    deleteathead(head);
+    display(head);
+    //deleteatloc(head,3);
    
+    display(head);
+    findmid(head);
+    cout<<endl;
+    nthnode(head, 0);
+    cout<<endl;
     return 0;
 }
